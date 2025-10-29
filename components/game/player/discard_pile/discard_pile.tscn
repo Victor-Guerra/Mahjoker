@@ -1,20 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cepl00mxvk2e1"]
+[gd_scene load_steps=3 format=3 uid="uid://cepl00mxvk2e1"]
 
 [ext_resource type="Script" uid="uid://dkeidv1t8ohvv" path="res://components/game/player/discard_pile/discard_pile.gd" id="1_g765s"]
 [ext_resource type="PackedScene" uid="uid://2fgyekk7rv0q" path="res://components/game/player/hand/hand.tscn" id="2_s6i6i"]
-[ext_resource type="Script" uid="uid://rmpolch06isb" path="res://components/game/deck/card/card_details.gd" id="3_8vbpk"]
 
 [node name="DiscardPile" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_g765s")
 
 [node name="Hand" parent="." instance=ExtResource("2_s6i6i")]
-cards_in_hand = Array[ExtResource("3_8vbpk")]([])
-hand_size = 64
+
+[node name="Cards" parent="Hand" index="0"]
+theme_override_constants/h_separation = -500
+
+[editable path="Hand"]

@@ -4,7 +4,7 @@ class_name State
 
 #@export var connected_states: Array[State]
 
-var parent: Control
+var parent: Node2D
 
 func enter() -> void:
 	pass

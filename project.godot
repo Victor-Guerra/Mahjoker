@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 
 CardEnums="*res://autoload/CardEnums.gd"
 ScenePaths="*res://autoload/ScenePaths.gd"
+GameEnums="*res://autoload/GameEnums.gd"
+GameSignals="*res://autoload/GameSignals.gd"
 
 [display]
 

@@ -10,6 +10,8 @@ class_name Card
 
 var _mouse_over: bool = false
 
+signal take_card(details: CardDetails)
+
 func _ready() -> void:
 	_connect_signals()
 	#render_card_front()
@@ -19,11 +21,16 @@ func _ready() -> void:
 	front_sprite.visible = true
 
 func _process(delta: float) -> void:
-	if _mouse_over:
+	if _mouse_over and front_sprite.visible:
 		self.scale = Vector2(1.2, 1.2)
 	else:
 		self.scale = Vector2(1.0, 1.0)
 	pass
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("LClick") and _mouse_over:
+		take_card.emit(card_details)
+
 
 func flip_card() -> void:
 	front_sprite.visible = !front_sprite.visible
@@ -32,16 +39,24 @@ func flip_card() -> void:
 func set_card_details(details: CardDetails) -> void:
 	card_details = details
 	render_card_front()
+	render_card_back()
+
+func clear_card_details() -> void:
+	card_details = null
+	render_card_front()
+	render_card_back()
 
 func render_card_front() -> void:
-	front_sprite.texture = card_details.front_texture
+	if card_details != null:
+		front_sprite.texture = card_details.front_texture
+	else:
+		front_sprite.texture = null
 
 func render_card_back() -> void:
-	back_sprite.texture = current_card_back.back_texture
-#
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("ui_accept"):
-		#flip_card()
+	if card_details != null:
+		back_sprite.texture = current_card_back.back_texture
+	else:
+		back_sprite.texture = null
 
 func _on_area_mouse_entered() -> void:
 	self._mouse_over = true

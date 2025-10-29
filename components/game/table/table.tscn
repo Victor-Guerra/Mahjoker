@@ -1,19 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://1aeqosaawoaj"]
+[gd_scene load_steps=10 format=3 uid="uid://1aeqosaawoaj"]
 
 [ext_resource type="Script" uid="uid://c4483eukymjs" path="res://components/game/table/table.gd" id="1_x25sh"]
 [ext_resource type="Resource" uid="uid://da5xq7kxsh2ea" path="res://components/game/deck/regular_deck.tres" id="2_dpgw7"]
 [ext_resource type="PackedScene" uid="uid://dhjlsk5awj2rr" path="res://components/game/player/player.tscn" id="3_lpli4"]
 [ext_resource type="PackedScene" uid="uid://2fgyekk7rv0q" path="res://components/game/player/hand/hand.tscn" id="4_dpgw7"]
+[ext_resource type="PackedScene" uid="uid://cepl00mxvk2e1" path="res://components/game/player/discard_pile/discard_pile.tscn" id="5_lpli4"]
+[ext_resource type="Texture2D" uid="uid://c7tabgyxkfpn5" path="res://assets/sprites/backgrounds/Space Background.png" id="6_gdy2a"]
+[ext_resource type="PackedScene" uid="uid://heu1snx6gs7s" path="res://components/state_machine/state_machine.tscn" id="7_6jai3"]
+[ext_resource type="Script" uid="uid://dfvkfhmexqqa5" path="res://components/game/table/states/game_setup.gd" id="8_2c7xq"]
+[ext_resource type="Script" uid="uid://bievfxgkakcf0" path="res://components/game/table/states/turn.gd" id="9_t8h4h"]
 
-[node name="Table" type="Node2D" node_paths=PackedStringArray("players", "camera")]
+[node name="Table" type="Node2D" node_paths=PackedStringArray("players", "camera", "game_sm")]
 script = ExtResource("1_x25sh")
 deck = ExtResource("2_dpgw7")
-players = [NodePath("Control/HandsGrid/Player"), NodePath("Control/HandsGrid/Player2"), NodePath("Control/HandsGrid/Player3"), NodePath("Control/HandsGrid/Player4")]
+players = [NodePath("Players/HandsGrid/Player"), NodePath("Players/HandsGrid/Player2"), NodePath("Players/HandsGrid/Player3"), NodePath("Players/HandsGrid/Player4")]
 camera = NodePath("Camera2D")
+game_sm = NodePath("StateMachine")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Control" type="Control" parent="."]
+[node name="Players" type="Control" parent="."]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 15
@@ -26,7 +32,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HandsGrid" type="GridContainer" parent="Control"]
+[node name="HandsGrid" type="GridContainer" parent="Players"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,62 +42,198 @@ grow_vertical = 2
 mouse_filter = 2
 columns = 3
 
-[node name="Filler1" type="CenterContainer" parent="Control/HandsGrid"]
+[node name="Filler1" type="CenterContainer" parent="Players/HandsGrid"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player3" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-hand = NodePath("Hand")
-
-[node name="Hand" parent="Control/HandsGrid/Player3" instance=ExtResource("4_dpgw7")]
-
-[node name="Filler2" type="CenterContainer" parent="Control/HandsGrid"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-
-[node name="Player4" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
+[node name="Player3" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 hand = NodePath("Hand")
+discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P3DiscardPile")
 
-[node name="Hand" parent="Control/HandsGrid/Player4" instance=ExtResource("4_dpgw7")]
+[node name="Hand" parent="Players/HandsGrid/Player3" instance=ExtResource("4_dpgw7")]
+
+[node name="Filler2" type="CenterContainer" parent="Players/HandsGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player4" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+hand = NodePath("Hand")
+discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P4DiscardPile")
+
+[node name="Hand" parent="Players/HandsGrid/Player4" instance=ExtResource("4_dpgw7")]
 rotation = -1.5707964
 
-[node name="RoundInfoHere" type="CenterContainer" parent="Control/HandsGrid"]
+[node name="RoundInfoHere" type="CenterContainer" parent="Players/HandsGrid"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player2" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
+[node name="Player2" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 hand = NodePath("Hand")
+discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P2DiscardPile")
 
-[node name="Hand" parent="Control/HandsGrid/Player2" instance=ExtResource("4_dpgw7")]
+[node name="Hand" parent="Players/HandsGrid/Player2" instance=ExtResource("4_dpgw7")]
 rotation = 1.5707964
 
-[node name="Filler4" type="CenterContainer" parent="Control/HandsGrid"]
+[node name="Filler4" type="CenterContainer" parent="Players/HandsGrid"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
+[node name="Player" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 hand = NodePath("Hand")
+discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P1DiscardPile")
 is_human = true
 
-[node name="Hand" parent="Control/HandsGrid/Player" instance=ExtResource("4_dpgw7")]
+[node name="Hand" parent="Players/HandsGrid/Player" instance=ExtResource("4_dpgw7")]
 
-[node name="Filler5" type="CenterContainer" parent="Control/HandsGrid"]
+[node name="Filler5" type="CenterContainer" parent="Players/HandsGrid"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+
+[node name="DiscardPiles" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DiscardPilesGrid" type="GridContainer" parent="DiscardPiles"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+columns = 3
+
+[node name="Filler1" type="CenterContainer" parent="DiscardPiles/DiscardPilesGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="P3DiscardPile" parent="DiscardPiles/DiscardPilesGrid" instance=ExtResource("5_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Hand" parent="DiscardPiles/DiscardPilesGrid/P3DiscardPile" index="0"]
+rotation = -3.1415927
+
+[node name="Filler2" type="CenterContainer" parent="DiscardPiles/DiscardPilesGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="P4DiscardPile" parent="DiscardPiles/DiscardPilesGrid" instance=ExtResource("5_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Hand" parent="DiscardPiles/DiscardPilesGrid/P4DiscardPile" index="0"]
+rotation = -1.5707964
+
+[node name="RoundInfoHere" type="CenterContainer" parent="DiscardPiles/DiscardPilesGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="P2DiscardPile" parent="DiscardPiles/DiscardPilesGrid" instance=ExtResource("5_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Hand" parent="DiscardPiles/DiscardPilesGrid/P2DiscardPile" index="0"]
+rotation = 1.5707964
+
+[node name="Filler4" type="CenterContainer" parent="DiscardPiles/DiscardPilesGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="P1DiscardPile" parent="DiscardPiles/DiscardPilesGrid" instance=ExtResource("5_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Filler5" type="CenterContainer" parent="DiscardPiles/DiscardPilesGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -10
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("6_gdy2a")
+stretch_mode = 5
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("7_6jai3")]
+starting_state = NodePath("Setup")
+
+[node name="Setup" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_setup_finish")]
+script = ExtResource("8_2c7xq")
+on_setup_finish = NodePath("../DiamondTurn")
+
+[node name="DiamondTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+script = ExtResource("9_t8h4h")
+on_discard = NodePath("../SpadeTurn")
+
+[node name="SpadeTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+script = ExtResource("9_t8h4h")
+on_discard = NodePath("../ClubTurn")
+
+[node name="ClubTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+script = ExtResource("9_t8h4h")
+on_discard = NodePath("../HeartTurn")
+
+[node name="HeartTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+script = ExtResource("9_t8h4h")
+on_discard = NodePath("../DiamondTurn")
+
+[node name="BetweenTurns" type="Node" parent="StateMachine"]
+script = ExtResource("9_t8h4h")
+
+[editable path="DiscardPiles/DiscardPilesGrid/P3DiscardPile"]
+[editable path="DiscardPiles/DiscardPilesGrid/P3DiscardPile/Hand"]
+[editable path="DiscardPiles/DiscardPilesGrid/P4DiscardPile"]
+[editable path="DiscardPiles/DiscardPilesGrid/P4DiscardPile/Hand"]
+[editable path="DiscardPiles/DiscardPilesGrid/P2DiscardPile"]
+[editable path="DiscardPiles/DiscardPilesGrid/P2DiscardPile/Hand"]
+[editable path="DiscardPiles/DiscardPilesGrid/P1DiscardPile"]
+[editable path="DiscardPiles/DiscardPilesGrid/P1DiscardPile/Hand"]

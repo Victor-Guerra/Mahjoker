@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://2fgyekk7rv0q"]
+[gd_scene load_steps=2 format=3 uid="uid://2fgyekk7rv0q"]
 
 [ext_resource type="Script" uid="uid://c281hkjmptfu2" path="res://components/game/player/hand/hand.gd" id="1_t8uf2"]
-[ext_resource type="PackedScene" uid="uid://dfko8tsmfplk0" path="res://components/game/deck/card/card.tscn" id="2_gymv2"]
 
 [node name="Hand" type="Node2D"]
 script = ExtResource("1_t8uf2")
+hand_size = 11
 
 [node name="Cards" type="HFlowContainer" parent="."]
 custom_minimum_size = Vector2(640, 64)
@@ -21,43 +21,5 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-
-[node name="Card" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card2" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card3" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card4" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card5" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card6" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card7" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card8" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card9" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
-
-[node name="Card10" parent="Cards" instance=ExtResource("2_gymv2")]
-layout_mode = 2
-size_flags_horizontal = 6
+mouse_filter = 2
+theme_override_constants/h_separation = 4

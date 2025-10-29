@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://bynsvrid7fp6i"]
+
+[ext_resource type="Texture2D" uid="uid://3vj1kp4npb7d" path="res://assets/sprites/Paper UI/Paper/Header1.png" id="1_lqc8b"]
+[ext_resource type="Script" uid="uid://cxylholmi86eq" path="res://components/game/player/score_and_seat_display/score_screen_display.gd" id="1_odsxn"]
+[ext_resource type="Texture2D" uid="uid://04ecrsl8eg3p" path="res://assets/sprites/atlases/heart_icon.tres" id="2_odsxn"]
+
+[node name="ScoreScreenDisplay" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 400.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_odsxn")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_lqc8b")
+expand_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="SeatIcon" type="TextureRect" parent="Background/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+texture = ExtResource("2_odsxn")
+expand_mode = 3
+
+[node name="PointsDisplay" type="HBoxContainer" parent="Background/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+
+[node name="PointsValueLabel" type="RichTextLabel" parent="Background/GridContainer/PointsDisplay"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "20"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PtsLabel" type="RichTextLabel" parent="Background/GridContainer/PointsDisplay"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+text = "pts"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
