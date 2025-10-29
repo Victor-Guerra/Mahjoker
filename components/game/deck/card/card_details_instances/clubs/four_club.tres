@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CardDetails" load_steps=3 format=3 uid="uid://dk1il2dir8yx1"]
+
+[ext_resource type="Texture2D" uid="uid://cvtedyhe0f0cb" path="res://assets/sprites/The Cards - Vanilla/The Cards - Vanilla 1-2_tile_20.png" id="1_juj1k"]
+[ext_resource type="Script" uid="uid://rmpolch06isb" path="res://components/game/deck/card/card_details.gd" id="2_88ff0"]
+
+[resource]
+script = ExtResource("2_88ff0")
+front_texture = ExtResource("1_juj1k")
+suit = 3
+value = 3
+metadata/_custom_type_script = "uid://rmpolch06isb"

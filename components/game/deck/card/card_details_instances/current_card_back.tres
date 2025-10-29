@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GlobalCardBack" load_steps=3 format=3 uid="uid://cdgbmx8kpfwt"]
+
+[ext_resource type="Texture2D" uid="uid://dpi7l7g8pdsf7" path="res://assets/sprites/The Cards - Vanilla/The Cards - Vanilla 1-2_tile_49.png" id="1_05n3b"]
+[ext_resource type="Script" uid="uid://dluse2baamv67" path="res://components/game/deck/card/global_card_back.gd" id="1_c2xme"]
+
+[resource]
+script = ExtResource("1_c2xme")
+back_texture = ExtResource("1_05n3b")
+metadata/_custom_type_script = "uid://dluse2baamv67"

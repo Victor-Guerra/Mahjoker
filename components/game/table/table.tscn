@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://1aeqosaawoaj"]
+
+[ext_resource type="Script" uid="uid://c4483eukymjs" path="res://components/game/table/table.gd" id="1_x25sh"]
+[ext_resource type="Resource" uid="uid://da5xq7kxsh2ea" path="res://components/game/deck/regular_deck.tres" id="2_dpgw7"]
+[ext_resource type="PackedScene" uid="uid://dhjlsk5awj2rr" path="res://components/game/player/player.tscn" id="3_lpli4"]
+[ext_resource type="PackedScene" uid="uid://2fgyekk7rv0q" path="res://components/game/player/hand/hand.tscn" id="4_dpgw7"]
+
+[node name="Table" type="Node2D" node_paths=PackedStringArray("players", "camera")]
+script = ExtResource("1_x25sh")
+deck = ExtResource("2_dpgw7")
+players = [NodePath("Control/HandsGrid/Player"), NodePath("Control/HandsGrid/Player2"), NodePath("Control/HandsGrid/Player3"), NodePath("Control/HandsGrid/Player4")]
+camera = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HandsGrid" type="GridContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+columns = 3
+
+[node name="Filler1" type="CenterContainer" parent="Control/HandsGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player3" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+hand = NodePath("Hand")
+
+[node name="Hand" parent="Control/HandsGrid/Player3" instance=ExtResource("4_dpgw7")]
+
+[node name="Filler2" type="CenterContainer" parent="Control/HandsGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player4" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+hand = NodePath("Hand")
+
+[node name="Hand" parent="Control/HandsGrid/Player4" instance=ExtResource("4_dpgw7")]
+rotation = -1.5707964
+
+[node name="RoundInfoHere" type="CenterContainer" parent="Control/HandsGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player2" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+hand = NodePath("Hand")
+
+[node name="Hand" parent="Control/HandsGrid/Player2" instance=ExtResource("4_dpgw7")]
+rotation = 1.5707964
+
+[node name="Filler4" type="CenterContainer" parent="Control/HandsGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Player" parent="Control/HandsGrid" node_paths=PackedStringArray("hand") instance=ExtResource("3_lpli4")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+hand = NodePath("Hand")
+is_human = true
+
+[node name="Hand" parent="Control/HandsGrid/Player" instance=ExtResource("4_dpgw7")]
+
+[node name="Filler5" type="CenterContainer" parent="Control/HandsGrid"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
