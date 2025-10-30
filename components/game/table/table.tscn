@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://1aeqosaawoaj"]
+[gd_scene load_steps=11 format=3 uid="uid://1aeqosaawoaj"]
 
 [ext_resource type="Script" uid="uid://c4483eukymjs" path="res://components/game/table/table.gd" id="1_x25sh"]
 [ext_resource type="Resource" uid="uid://da5xq7kxsh2ea" path="res://components/game/deck/regular_deck.tres" id="2_dpgw7"]
 [ext_resource type="PackedScene" uid="uid://dhjlsk5awj2rr" path="res://components/game/player/player.tscn" id="3_lpli4"]
 [ext_resource type="PackedScene" uid="uid://2fgyekk7rv0q" path="res://components/game/player/hand/hand.tscn" id="4_dpgw7"]
+[ext_resource type="PackedScene" uid="uid://bynsvrid7fp6i" path="res://components/game/player/score_and_seat_display/score_seat_display.tscn" id="5_63hy1"]
 [ext_resource type="PackedScene" uid="uid://cepl00mxvk2e1" path="res://components/game/player/discard_pile/discard_pile.tscn" id="5_lpli4"]
 [ext_resource type="Texture2D" uid="uid://c7tabgyxkfpn5" path="res://assets/sprites/backgrounds/Space Background.png" id="6_gdy2a"]
 [ext_resource type="PackedScene" uid="uid://heu1snx6gs7s" path="res://components/state_machine/state_machine.tscn" id="7_6jai3"]
@@ -47,28 +48,53 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player3" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
+[node name="Player3" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile", "score_and_seat") instance=ExtResource("3_lpli4")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 hand = NodePath("Hand")
 discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P3DiscardPile")
+score_and_seat = NodePath("ScoreSeatDisplay")
 
 [node name="Hand" parent="Players/HandsGrid/Player3" instance=ExtResource("4_dpgw7")]
+
+[node name="ScoreSeatDisplay" parent="Players/HandsGrid/Player3" instance=ExtResource("5_63hy1")]
+layout_mode = 1
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -176.0
+offset_right = 200.0
+offset_bottom = -76.0
+grow_vertical = 0
 
 [node name="Filler2" type="CenterContainer" parent="Players/HandsGrid"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player4" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
+[node name="Player4" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile", "score_and_seat") instance=ExtResource("3_lpli4")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 hand = NodePath("Hand")
 discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P4DiscardPile")
+score_and_seat = NodePath("ScoreSeatDisplay")
 
 [node name="Hand" parent="Players/HandsGrid/Player4" instance=ExtResource("4_dpgw7")]
+rotation = -1.5707964
+
+[node name="ScoreSeatDisplay" parent="Players/HandsGrid/Player4" instance=ExtResource("5_63hy1")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -468.0
+offset_top = -50.0
+offset_right = -68.0
+offset_bottom = 50.0
+grow_horizontal = 0
 rotation = -1.5707964
 
 [node name="RoundInfoHere" type="CenterContainer" parent="Players/HandsGrid"]
@@ -76,14 +102,27 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player2" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
+[node name="Player2" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile", "score_and_seat") instance=ExtResource("3_lpli4")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 hand = NodePath("Hand")
 discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P2DiscardPile")
+score_and_seat = NodePath("ScoreSeatDisplay")
 
 [node name="Hand" parent="Players/HandsGrid/Player2" instance=ExtResource("4_dpgw7")]
+rotation = 1.5707964
+
+[node name="ScoreSeatDisplay" parent="Players/HandsGrid/Player2" instance=ExtResource("5_63hy1")]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 66.0
+offset_top = -50.0
+offset_right = 465.99997
+offset_bottom = 50.0
+grow_horizontal = 1
 rotation = 1.5707964
 
 [node name="Filler4" type="CenterContainer" parent="Players/HandsGrid"]
@@ -91,15 +130,27 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Player" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile") instance=ExtResource("3_lpli4")]
+[node name="Player" parent="Players/HandsGrid" node_paths=PackedStringArray("hand", "discard_pile", "score_and_seat") instance=ExtResource("3_lpli4")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 hand = NodePath("Hand")
 discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P1DiscardPile")
+score_and_seat = NodePath("ScoreSeatDisplay")
 is_human = true
 
 [node name="Hand" parent="Players/HandsGrid/Player" instance=ExtResource("4_dpgw7")]
+
+[node name="ScoreSeatDisplay" parent="Players/HandsGrid/Player" instance=ExtResource("5_63hy1")]
+layout_mode = 1
+anchors_preset = 5
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = -200.0
+offset_top = 78.0
+offset_right = 200.0
+offset_bottom = 178.0
+grow_vertical = 1
 
 [node name="Filler5" type="CenterContainer" parent="Players/HandsGrid"]
 layout_mode = 2

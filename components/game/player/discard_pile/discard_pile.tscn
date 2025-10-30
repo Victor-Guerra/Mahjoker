@@ -9,8 +9,9 @@ anchors_preset = 0
 script = ExtResource("1_g765s")
 
 [node name="Hand" parent="." instance=ExtResource("2_s6i6i")]
+hand_size = 16
 
 [node name="Cards" parent="Hand" index="0"]
-theme_override_constants/h_separation = -500
+theme_override_constants/h_separation = -400
 
 [editable path="Hand"]

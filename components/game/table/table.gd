@@ -16,11 +16,9 @@ func _ready() -> void:
 #	pass
 
 func deal_hands() -> void:
-	print(deck.all_cards.size())
 	for i in range(0,10): ## ToDo: Change to a constant for hand size
 		for player in players:
 			deck.deal_card(player)
-	print(deck.all_cards.size())
 
 func assign_seats() -> void:
 	for player in players:
@@ -57,3 +55,9 @@ func get_player_by_seat(seat: GameEnums.Seat) -> Player:
 
 func get_player_of_current_turn() -> Player:
 	return get_player_by_seat(current_turn)
+
+func update_which_player_can_play() -> void:
+	for player in players:
+		player.can_play = false
+	
+	get_player_of_current_turn().can_play = true

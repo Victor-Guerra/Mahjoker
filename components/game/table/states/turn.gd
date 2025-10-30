@@ -6,7 +6,7 @@ extends State
 func enter() -> void:
 	var curr_player = parent.get_player_of_current_turn()
 	curr_player.end_turn.connect(_handle_on_discard)	
-
+	parent.update_which_player_can_play()
 	parent.deal_card_to_player_in_seat_of_current_turn()
 
 	pass

@@ -13,8 +13,8 @@ func _ready() -> void:
 	_instantiate_card_slots()
 	_populate_card_slots_array()
 
-	sort_hand()
-	render_hand()
+	#sort_hand()
+	#render_hand()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -32,8 +32,11 @@ func take_card(details: CardDetails) -> CardDetails:
 
 	return taken_card
 
-func render_hand() -> void:
+func render_hand() -> void: ## ToDo: Fix the ungodly amount of error messages this is producing
 	for i in range(0,hand_size):
+		if i > cards_in_hand.size():
+			return
+
 		if not cards_in_hand.get(i):
 			card_slots.get(i).clear_card_details()
 		else:

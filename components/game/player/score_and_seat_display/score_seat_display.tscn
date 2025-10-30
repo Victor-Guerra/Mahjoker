@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bynsvrid7fp6i"]
 
-[ext_resource type="Texture2D" uid="uid://3vj1kp4npb7d" path="res://assets/sprites/Paper UI/Paper/Header1.png" id="1_lqc8b"]
-[ext_resource type="Script" uid="uid://cxylholmi86eq" path="res://components/game/player/score_and_seat_display/score_screen_display.gd" id="1_odsxn"]
-[ext_resource type="Texture2D" uid="uid://04ecrsl8eg3p" path="res://assets/sprites/atlases/heart_icon.tres" id="2_odsxn"]
+[ext_resource type="Script" uid="uid://cxylholmi86eq" path="res://components/game/player/score_and_seat_display/score_seat_display.gd" id="1_d80ll"]
+[ext_resource type="Texture2D" uid="uid://3vj1kp4npb7d" path="res://assets/sprites/Paper UI/Paper/Header1.png" id="2_jp1gd"]
+[ext_resource type="Theme" uid="uid://bo2p3nv3drtfi" path="res://assets/themes/score_display_theme.tres" id="3_d80ll"]
 
-[node name="ScoreScreenDisplay" type="Control"]
+[node name="ScoreSeatDisplay" type="Control"]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 8
@@ -16,9 +16,10 @@ offset_right = 400.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 50)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_odsxn")
+script = ExtResource("1_d80ll")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -27,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_lqc8b")
+texture = ExtResource("2_jp1gd")
 expand_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="Background"]
@@ -43,7 +44,6 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 3
-texture = ExtResource("2_odsxn")
 expand_mode = 3
 
 [node name="PointsDisplay" type="HBoxContainer" parent="Background/GridContainer"]
@@ -55,6 +55,7 @@ size_flags_vertical = 6
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
+theme = ExtResource("3_d80ll")
 text = "20"
 fit_content = true
 autowrap_mode = 0
@@ -65,6 +66,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
+theme = ExtResource("3_d80ll")
 text = "pts"
 fit_content = true
 autowrap_mode = 0
