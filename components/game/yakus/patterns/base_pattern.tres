@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BasePattern" load_steps=2 format=3 uid="uid://cc84gm4bjxcwn"]
+
+[ext_resource type="Script" uid="uid://xu1gtxg4eeg0" path="res://components/game/yakus/patterns/base_pattern.gd" id="1_agina"]
+
+[resource]
+script = ExtResource("1_agina")
+metadata/_custom_type_script = "uid://xu1gtxg4eeg0"

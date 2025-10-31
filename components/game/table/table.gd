@@ -4,10 +4,13 @@ class_name Table
 @export var deck: Deck
 @export var players: Array[Player]
 @export var camera: Camera2D
+@export var active_patterns: Array[HandPattern]
 
 @export var game_sm: StateMachine
 
 @export var current_turn: GameEnums.Seat = GameEnums.Seat.DIAMOND
+
+var base_pattern: HandPattern = BasePattern.new()
 
 func _ready() -> void:
 	game_sm.init(self)
@@ -61,3 +64,6 @@ func update_which_player_can_play() -> void:
 		player.can_play = false
 	
 	get_player_of_current_turn().can_play = true
+
+func check_if_current_player_wins() -> bool:
+	return base_pattern.check_if_present(get_player_of_current_turn().hand)

@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://1aeqosaawoaj"]
+[gd_scene load_steps=13 format=3 uid="uid://1aeqosaawoaj"]
 
 [ext_resource type="Script" uid="uid://c4483eukymjs" path="res://components/game/table/table.gd" id="1_x25sh"]
 [ext_resource type="Resource" uid="uid://da5xq7kxsh2ea" path="res://components/game/deck/regular_deck.tres" id="2_dpgw7"]
+[ext_resource type="Script" uid="uid://dkacqglhqq5yf" path="res://components/game/yakus/hand_pattern.gd" id="3_ldnve"]
 [ext_resource type="PackedScene" uid="uid://dhjlsk5awj2rr" path="res://components/game/player/player.tscn" id="3_lpli4"]
 [ext_resource type="PackedScene" uid="uid://2fgyekk7rv0q" path="res://components/game/player/hand/hand.tscn" id="4_dpgw7"]
+[ext_resource type="Resource" uid="uid://cc84gm4bjxcwn" path="res://components/game/yakus/patterns/base_pattern.tres" id="4_p8jr8"]
 [ext_resource type="PackedScene" uid="uid://bynsvrid7fp6i" path="res://components/game/player/score_and_seat_display/score_seat_display.tscn" id="5_63hy1"]
 [ext_resource type="PackedScene" uid="uid://cepl00mxvk2e1" path="res://components/game/player/discard_pile/discard_pile.tscn" id="5_lpli4"]
 [ext_resource type="Texture2D" uid="uid://c7tabgyxkfpn5" path="res://assets/sprites/backgrounds/Space Background.png" id="6_gdy2a"]
@@ -16,6 +18,7 @@ script = ExtResource("1_x25sh")
 deck = ExtResource("2_dpgw7")
 players = [NodePath("Players/HandsGrid/Player"), NodePath("Players/HandsGrid/Player2"), NodePath("Players/HandsGrid/Player3"), NodePath("Players/HandsGrid/Player4")]
 camera = NodePath("Camera2D")
+active_patterns = Array[ExtResource("3_ldnve")]([ExtResource("4_p8jr8")])
 game_sm = NodePath("StateMachine")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -55,6 +58,7 @@ size_flags_vertical = 6
 hand = NodePath("Hand")
 discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P3DiscardPile")
 score_and_seat = NodePath("ScoreSeatDisplay")
+is_human = true
 
 [node name="Hand" parent="Players/HandsGrid/Player3" instance=ExtResource("4_dpgw7")]
 
@@ -81,6 +85,7 @@ size_flags_vertical = 6
 hand = NodePath("Hand")
 discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P4DiscardPile")
 score_and_seat = NodePath("ScoreSeatDisplay")
+is_human = true
 
 [node name="Hand" parent="Players/HandsGrid/Player4" instance=ExtResource("4_dpgw7")]
 rotation = -1.5707964
@@ -109,6 +114,7 @@ size_flags_vertical = 6
 hand = NodePath("Hand")
 discard_pile = NodePath("../../../DiscardPiles/DiscardPilesGrid/P2DiscardPile")
 score_and_seat = NodePath("ScoreSeatDisplay")
+is_human = true
 
 [node name="Hand" parent="Players/HandsGrid/Player2" instance=ExtResource("4_dpgw7")]
 rotation = 1.5707964

@@ -7,3 +7,6 @@ class_name CardDetails
 @export var value: CardEnums.CardValue
 
 # func card_effect() -> void: ## etc if I add effects to the game
+
+func print_card() -> void:
+    print("" + CardEnums.CardValue.find_key(value) + "of" + CardEnums.CardSuit.find_key(suit))

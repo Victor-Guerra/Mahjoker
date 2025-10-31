@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://brx6dp2ho7bdl"]
+
+[ext_resource type="FontFile" uid="uid://dc0n8dovhr0x7" path="res://assets/fonts/NotJamSciMono13.ttf" id="1_nu06t"]
+
+[resource]
+default_font = ExtResource("1_nu06t")
+default_font_size = 64

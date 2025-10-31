@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://j471vcplehxf"]
+
+[ext_resource type="Script" uid="uid://dxalpl1n0vbr1" path="res://components/game/table/hud_and_ui/announcement.gd" id="1_b6lsy"]
+[ext_resource type="Theme" uid="uid://brx6dp2ho7bdl" path="res://assets/themes/anouncement_theme.tres" id="2_iu4jb"]
+
+[node name="Announcement" type="CenterContainer"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+script = ExtResource("1_b6lsy")
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 2
+theme = ExtResource("2_iu4jb")
+text = "STEAL"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

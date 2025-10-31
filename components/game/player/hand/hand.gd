@@ -43,24 +43,8 @@ func render_hand() -> void: ## ToDo: Fix the ungodly amount of error messages th
 			card_slots.get(i).set_card_details(cards_in_hand.get(i))
 
 func sort_hand() -> void:
-	cards_in_hand.sort_custom(_sort_ascending_value)
-	cards_in_hand.sort_custom(_sort_ascending_suit)
-
-
-func _sort_ascending_value(a: CardDetails, b: CardDetails) -> bool:
-	if a.value < b.value:
-		return true
-
-	return false
-
-func _sort_ascending_suit(a: CardDetails, b: CardDetails) -> bool:
-	if a.suit < b.suit:	
-		return true
-
-	return false
-
-#func _find_card(a: CardDetails, b: CardDetails) -> bool:
-	#pass
+	cards_in_hand.sort_custom(Utility.Sort.sort_ascending_value)
+	cards_in_hand.sort_custom(Utility.Sort.sort_ascending_suit)
 
 func flip_hand() -> void:
 	for card in card_slots:

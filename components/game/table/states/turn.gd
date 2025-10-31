@@ -9,6 +9,7 @@ func enter() -> void:
 	parent.update_which_player_can_play()
 	parent.deal_card_to_player_in_seat_of_current_turn()
 
+	parent.check_if_current_player_wins()
 	pass
 
 func exit() -> void:

@@ -1,0 +1,27 @@
+[gd_scene load_steps=16 format=3 uid="uid://u2r3c22d1gjr"]
+
+[ext_resource type="Script" uid="uid://dlvky110qckg1" path="res://tests/test_hand_pattern.gd" id="1_cie1l"]
+[ext_resource type="Resource" uid="uid://cc84gm4bjxcwn" path="res://components/game/yakus/patterns/base_pattern.tres" id="2_11as2"]
+[ext_resource type="PackedScene" uid="uid://2fgyekk7rv0q" path="res://components/game/player/hand/hand.tscn" id="3_76f1b"]
+[ext_resource type="Script" uid="uid://rmpolch06isb" path="res://components/game/deck/card/card_details.gd" id="4_0135v"]
+[ext_resource type="Resource" uid="uid://bghtq8ar8g3mx" path="res://components/game/deck/card/card_details_instances/hearts/ace_heart.tres" id="5_hactr"]
+[ext_resource type="Resource" uid="uid://cirxdne4w58su" path="res://components/game/deck/card/card_details_instances/hearts/two_heart.tres" id="6_5bvj6"]
+[ext_resource type="Resource" uid="uid://c6r62tcdxtfvw" path="res://components/game/deck/card/card_details_instances/hearts/three_heart.tres" id="7_a3tjf"]
+[ext_resource type="Resource" uid="uid://dk1il2dir8yx1" path="res://components/game/deck/card/card_details_instances/clubs/four_club.tres" id="8_cho03"]
+[ext_resource type="Resource" uid="uid://bvqvmx30yqygq" path="res://components/game/deck/card/card_details_instances/clubs/five_club.tres" id="9_nrh81"]
+[ext_resource type="Resource" uid="uid://cmlje4r84idee" path="res://components/game/deck/card/card_details_instances/clubs/six_club.tres" id="10_yemw1"]
+[ext_resource type="Resource" uid="uid://c6p2yxi3i0sqs" path="res://components/game/deck/card/card_details_instances/diamonds/seven_diamond.tres" id="11_jr1e8"]
+[ext_resource type="Resource" uid="uid://bslnytfyfwlx" path="res://components/game/deck/card/card_details_instances/diamonds/eight_diamond.tres" id="12_68rou"]
+[ext_resource type="Resource" uid="uid://plq8qd67o7vh" path="res://components/game/deck/card/card_details_instances/diamonds/nine_diamond.tres" id="13_10slm"]
+[ext_resource type="Resource" uid="uid://dfbhrai8pjv5e" path="res://components/game/deck/card/card_details_instances/spades/king_spades.tres" id="14_oovo0"]
+[ext_resource type="Resource" uid="uid://bi1v15x7lh657" path="res://components/game/deck/card/card_details_instances/clubs/king_club.tres" id="15_4h4vj"]
+
+[node name="TestHandPattern" type="Node2D" node_paths=PackedStringArray("hand_to_use")]
+script = ExtResource("1_cie1l")
+pattern_to_test = ExtResource("2_11as2")
+hand_to_use = NodePath("Hand")
+
+[node name="Hand" parent="." instance=ExtResource("3_76f1b")]
+cards_in_hand = Array[ExtResource("4_0135v")]([ExtResource("5_hactr"), ExtResource("6_5bvj6"), ExtResource("7_a3tjf"), ExtResource("8_cho03"), ExtResource("9_nrh81"), ExtResource("10_yemw1"), ExtResource("11_jr1e8"), ExtResource("12_68rou"), ExtResource("13_10slm"), ExtResource("14_oovo0"), ExtResource("15_4h4vj")])
+
+[node name="Camera2D" type="Camera2D" parent="."]
