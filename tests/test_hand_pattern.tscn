@@ -13,8 +13,8 @@
 [ext_resource type="Resource" uid="uid://c6p2yxi3i0sqs" path="res://components/game/deck/card/card_details_instances/diamonds/seven_diamond.tres" id="11_jr1e8"]
 [ext_resource type="Resource" uid="uid://bslnytfyfwlx" path="res://components/game/deck/card/card_details_instances/diamonds/eight_diamond.tres" id="12_68rou"]
 [ext_resource type="Resource" uid="uid://plq8qd67o7vh" path="res://components/game/deck/card/card_details_instances/diamonds/nine_diamond.tres" id="13_10slm"]
-[ext_resource type="Resource" uid="uid://dfbhrai8pjv5e" path="res://components/game/deck/card/card_details_instances/spades/king_spades.tres" id="14_oovo0"]
-[ext_resource type="Resource" uid="uid://bi1v15x7lh657" path="res://components/game/deck/card/card_details_instances/clubs/king_club.tres" id="15_4h4vj"]
+[ext_resource type="Resource" uid="uid://daytuaht2041b" path="res://components/game/deck/card/card_details_instances/diamonds/ten_diamond.tres" id="14_awdb2"]
+[ext_resource type="Resource" uid="uid://cetocwvmamvik" path="res://components/game/deck/card/card_details_instances/hearts/ten_heart.tres" id="15_cho03"]
 
 [node name="TestHandPattern" type="Node2D" node_paths=PackedStringArray("hand_to_use")]
 script = ExtResource("1_cie1l")
@@ -22,6 +22,6 @@ pattern_to_test = ExtResource("2_11as2")
 hand_to_use = NodePath("Hand")
 
 [node name="Hand" parent="." instance=ExtResource("3_76f1b")]
-cards_in_hand = Array[ExtResource("4_0135v")]([ExtResource("5_hactr"), ExtResource("6_5bvj6"), ExtResource("7_a3tjf"), ExtResource("8_cho03"), ExtResource("9_nrh81"), ExtResource("10_yemw1"), ExtResource("11_jr1e8"), ExtResource("12_68rou"), ExtResource("13_10slm"), ExtResource("14_oovo0"), ExtResource("15_4h4vj")])
+cards_in_hand = Array[ExtResource("4_0135v")]([ExtResource("5_hactr"), ExtResource("6_5bvj6"), ExtResource("7_a3tjf"), ExtResource("8_cho03"), ExtResource("9_nrh81"), ExtResource("10_yemw1"), ExtResource("11_jr1e8"), ExtResource("12_68rou"), ExtResource("13_10slm"), ExtResource("14_awdb2"), ExtResource("15_cho03")])
 
 [node name="Camera2D" type="Camera2D" parent="."]

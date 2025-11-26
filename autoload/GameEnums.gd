@@ -13,3 +13,10 @@ const SeatIcons: Dictionary[Seat, String] = {
 	Seat.CLUB: "res://assets/sprites/atlases/club_icon.tres",
 	Seat.HEART: "res://assets/sprites/atlases/heart_icon.tres"
 }
+
+enum GameAction {
+	WIN,
+	STEAL,
+	DRAW,
+
+}

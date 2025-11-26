@@ -3,6 +3,10 @@ extends Resource
 class_name HandPattern
 
 @abstract func check_if_present(hand: Hand) -> bool
+#@abstract func _init(cards_in_hand: Array[CardDetails]) -> void
+@abstract func get_matches(hand: Hand) -> Array[Utility.ThroupleGroup]
+var point_value: int
+var is_win_pattern: bool
 
 #region Card operations
 
@@ -43,6 +47,11 @@ func _is_card_club(card: CardDetails) -> bool:
 func _is_card_heart(card: CardDetails) -> bool:
 	return card.suit == CardEnums.CardSuit.HEART
 
+#region Pair checking
+
+func _is_couple_valid_pair(c1: CardDetails, c2: CardDetails) -> bool:
+	return ((c1.value == c2.value) and (c1.color == c2.color))
+
 #region Throuple creation
 
 func _get_premutation_of_three(cards: Array[CardDetails], i: int, j: int, k: int) -> Utility.Throuple:
@@ -66,9 +75,7 @@ func _is_throuple_a_sequence(throuple: Utility.Throuple) -> bool:
 	if not (throuple.cards.all(_is_card_red) or throuple.cards.all(_is_card_black)):
 		return false
 
-	print("checking if sequence")
 	throuple.cards.sort_custom(Utility.Sort.sort_ascending_value)
-	throuple.print_cards()
 
 	return (throuple.cards.get(1).value == (throuple.cards.get(0).value + 1 as CardEnums.CardValue) 
 			and throuple.cards.get(2).value == (throuple.cards.get(1).value + 1 as CardEnums.CardValue))
@@ -93,7 +100,7 @@ func _remove_equivalent_throuples(sets: Array[Utility.Throuple]) -> Array[Utilit
 			## Check if all cards in this set have a matching value:color pair in the other set
 			if sets.get(i).cards.all(
 				func (card): sets.get(j).cards.any(
-					func (x): (x.value == card.value and x.color == card.color)
+					func (x): return (x.value == card.value and x.color == card.color)
 				)):
 					to_pop.append(j)
 
@@ -102,42 +109,42 @@ func _remove_equivalent_throuples(sets: Array[Utility.Throuple]) -> Array[Utilit
 
 	return sets
 
+func __get_new_group(start_idx: int, sets: Array[Utility.Throuple], cards: Array[CardDetails]) -> Array[Utility.Throuple]:
+	var ns: Array[Utility.Throuple] = []
+
+	for i in range(0, sets.size()):
+		var idx = (i + start_idx) % sets.size()
+		##
+		## Issue [is] was in the lambda funcs used, replaced by the ones below
+		##
+		var _is_card_in_set = func (x: CardDetails) -> bool:
+			var is_card_in = not (x.is_card_in_list(sets.get(idx).cards))
+			return is_card_in
+
+		var _is_card_in_hand = func (x: CardDetails) -> bool:
+			var is_card_in = x.is_card_in_list(cards)
+			return is_card_in
+
+		if sets.get(idx).cards.all(_is_card_in_hand):
+			#sets.get(idx).print_cards()
+			ns.append(sets.get(idx))
+			cards = cards.filter(_is_card_in_set)
+
+	return ns
+
+## ToDo
+#func _remove_redundant_exclusive_applicable_sets(sets: Array[Utility.ThroupleGroup]) -> Array[Utility.ThroupleGroup]:
+
+
 func _get_sets_of_exclusive_applicable_sets(all_cards: Array[CardDetails], all_sets: Array[Utility.Throuple]) -> Array[Utility.ThroupleGroup]:
-	## This can DEFINITELY be simplified by using recursion, but later :b ## ToDo
 	var exclusive_applicable_sets: Array[Utility.ThroupleGroup] = []
-	for i in range(0,all_sets.size()):
-		var new_group = []
-		## remove cards to see if other sets can still be formed with the remaining cards
-		var remaining_cards = all_cards.filter(func (x): x not in all_sets.get(i).cards)
+	for i in range(0, all_sets.size()):
+		var new_group = __get_new_group(i, all_sets.duplicate_deep(), all_cards.duplicate_deep())
 
-		# In case no more sets of 3 can possibly fit in the given cards
-		new_group.append(all_sets.get(i))
-		if remaining_cards.size() < 3:
-			continue
-
-		for j in range(i+1, all_sets.size()):
-			## remove cards to see if other sets can still be formed with the remaining cards
-			if all_sets.get(j).cards.all(func (x): x in remaining_cards):
-				remaining_cards = remaining_cards.filter(func (x): x not in all_sets.get(j).cards)
-
-				# In case no more sets of 3 can possibly fit in the given cards
-				new_group.append(all_sets.get(j))
-				if remaining_cards.size() < 3:
-					continue
-
-				for k in range(j+1, all_sets.size()):
-					if all_sets.get(k).cards.all(func (x): x in remaining_cards):
-						remaining_cards = remaining_cards.filter(func (x): x not in all_sets.get(k).cards)
-
-						# In case no more sets of 3 can possibly fit in the given cards
-						new_group.append(all_sets.get(k))
-						if remaining_cards.size() < 3:
-							continue
-					else:
-						continue
-
-			else:
-				continue
+		#for nset in new_group:
+			#nset.print_cards()
+		#print("#######")
 
 		exclusive_applicable_sets.append(Utility.ThroupleGroup.new(new_group))
+
 	return exclusive_applicable_sets

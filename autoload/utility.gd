@@ -25,3 +25,11 @@ class ThroupleGroup:
 	
 	func _init(group: Array[Throuple]):
 		self.sets = group
+
+	func get_cards() -> Array[CardDetails]:
+		var cards: Array[CardDetails] = []
+		for card_set in sets:
+			for card in card_set.cards:
+				cards.append(card)
+		
+		return cards

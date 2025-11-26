@@ -6,14 +6,18 @@ class_name Table
 @export var camera: Camera2D
 @export var active_patterns: Array[HandPattern]
 
+@export var announcements: GameAnnouncement
 @export var game_sm: StateMachine
+@export var pattern_manager: PatternManager 
 
 @export var current_turn: GameEnums.Seat = GameEnums.Seat.DIAMOND
 
-var base_pattern: HandPattern = BasePattern.new()
+
+signal game_won(player: Player)
 
 func _ready() -> void:
 	game_sm.init(self)
+	deck.deck_empty.connect(_handle_empty_deck)
 
 #func _process(delta: float) -> void:
 #	pass
@@ -65,5 +69,31 @@ func update_which_player_can_play() -> void:
 	
 	get_player_of_current_turn().can_play = true
 
-func check_if_current_player_wins() -> bool:
-	return base_pattern.check_if_present(get_player_of_current_turn().hand)
+func check_if_current_player_wins() -> void:
+	pattern_manager.find_patterns_in_hand(get_player_of_current_turn().hand)
+	if pattern_manager.are_matched_patterns_a_win():
+		game_won.emit(get_player_of_current_turn())
+
+func announce_action(action: GameEnums.GameAction) -> void:
+	announcements.show_announcement(action)
+
+func announce_win() -> void:
+	announce_action(GameEnums.GameAction.WIN)
+
+func announce_draw() -> void:
+	announce_action(GameEnums.GameAction.DRAW)
+
+func announce_steal() -> void:
+	announce_action(GameEnums.GameAction.STEAL)
+
+func _handle_empty_deck() -> void:
+	announce_draw()
+
+
+func end_round() -> void:
+	#count_winning_hand()
+	#adjust_scores()
+	#reset_deck()
+	#rotate_seats()
+	#next_round()
+	pass

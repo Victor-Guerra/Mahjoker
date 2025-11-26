@@ -12,6 +12,8 @@ class_name Player
 @export var is_human: bool
 #@export var AI_behavior: AIBehaviorPack
 
+var score: int = 20
+
 var can_play: bool = false
 var last_dice_throw: int
 
@@ -20,6 +22,7 @@ signal end_turn()
 func _ready() -> void:
 	_bind_card_signals_to_player()
 
+	## To replace 
 	if not is_human:
 		hand.flip_hand()
 
@@ -27,7 +30,6 @@ func discard_card(details: CardDetails) -> void:
 	if can_play:
 		discard_pile.add_to_discard_pile(hand.take_card(details))
 		end_turn.emit()
-
 
 func _bind_card_signals_to_player() -> void:
 	for card in hand.card_slots:

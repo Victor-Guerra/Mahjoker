@@ -12,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
 script = ExtResource("1_b6lsy")
+anouncement_text = null
 
 [node name="Label" type="RichTextLabel" parent="."]
 layout_mode = 2

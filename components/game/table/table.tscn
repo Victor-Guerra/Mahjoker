@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://1aeqosaawoaj"]
+[gd_scene load_steps=16 format=3 uid="uid://1aeqosaawoaj"]
 
 [ext_resource type="Script" uid="uid://c4483eukymjs" path="res://components/game/table/table.gd" id="1_x25sh"]
 [ext_resource type="Resource" uid="uid://da5xq7kxsh2ea" path="res://components/game/deck/regular_deck.tres" id="2_dpgw7"]
@@ -12,14 +12,18 @@
 [ext_resource type="PackedScene" uid="uid://heu1snx6gs7s" path="res://components/state_machine/state_machine.tscn" id="7_6jai3"]
 [ext_resource type="Script" uid="uid://dfvkfhmexqqa5" path="res://components/game/table/states/game_setup.gd" id="8_2c7xq"]
 [ext_resource type="Script" uid="uid://bievfxgkakcf0" path="res://components/game/table/states/turn.gd" id="9_t8h4h"]
+[ext_resource type="PackedScene" uid="uid://j471vcplehxf" path="res://components/game/table/hud_and_ui/announcement.tscn" id="10_p8jr8"]
+[ext_resource type="Script" uid="uid://dumqfxjekgih3" path="res://components/game/table/states/end_of_round.gd" id="14_g0t8u"]
+[ext_resource type="PackedScene" uid="uid://bwhlwjlumbe7a" path="res://components/game/table/managers/pattern_manager/pattern_manager.tscn" id="14_x73na"]
 
-[node name="Table" type="Node2D" node_paths=PackedStringArray("players", "camera", "game_sm")]
+[node name="Table" type="Node2D" node_paths=PackedStringArray("camera", "announcements", "game_sm", "pattern_manager")]
 script = ExtResource("1_x25sh")
 deck = ExtResource("2_dpgw7")
-players = [NodePath("Players/HandsGrid/Player"), NodePath("Players/HandsGrid/Player2"), NodePath("Players/HandsGrid/Player3"), NodePath("Players/HandsGrid/Player4")]
 camera = NodePath("Camera2D")
 active_patterns = Array[ExtResource("3_ldnve")]([ExtResource("4_p8jr8")])
+announcements = NodePath("Announcement")
 game_sm = NodePath("StateMachine")
+pattern_manager = NodePath("PatternManager")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -260,6 +264,12 @@ mouse_filter = 2
 texture = ExtResource("6_gdy2a")
 stretch_mode = 5
 
+[node name="Announcement" parent="." instance=ExtResource("10_p8jr8")]
+offset_left = -86.0
+offset_top = -32.5
+offset_right = 86.0
+offset_bottom = 32.5
+
 [node name="StateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("7_6jai3")]
 starting_state = NodePath("Setup")
 
@@ -267,24 +277,33 @@ starting_state = NodePath("Setup")
 script = ExtResource("8_2c7xq")
 on_setup_finish = NodePath("../DiamondTurn")
 
-[node name="DiamondTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+[node name="DiamondTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard", "on_win")]
 script = ExtResource("9_t8h4h")
 on_discard = NodePath("../SpadeTurn")
+on_win = NodePath("../RoundEnd")
 
-[node name="SpadeTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+[node name="SpadeTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard", "on_win")]
 script = ExtResource("9_t8h4h")
 on_discard = NodePath("../ClubTurn")
+on_win = NodePath("../RoundEnd")
 
-[node name="ClubTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+[node name="ClubTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard", "on_win")]
 script = ExtResource("9_t8h4h")
 on_discard = NodePath("../HeartTurn")
+on_win = NodePath("../RoundEnd")
 
-[node name="HeartTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard")]
+[node name="HeartTurn" type="Node" parent="StateMachine" node_paths=PackedStringArray("on_discard", "on_win")]
 script = ExtResource("9_t8h4h")
 on_discard = NodePath("../DiamondTurn")
+on_win = NodePath("../RoundEnd")
 
 [node name="BetweenTurns" type="Node" parent="StateMachine"]
 script = ExtResource("9_t8h4h")
+
+[node name="RoundEnd" type="Node" parent="StateMachine"]
+script = ExtResource("14_g0t8u")
+
+[node name="PatternManager" parent="." instance=ExtResource("14_x73na")]
 
 [editable path="DiscardPiles/DiscardPilesGrid/P3DiscardPile"]
 [editable path="DiscardPiles/DiscardPilesGrid/P3DiscardPile/Hand"]
